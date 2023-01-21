@@ -1,5 +1,6 @@
 # redash-gas
 GASでRedashのクエリを読み込むサンプル
+
 ## Summary
 - GAS（Google Apps Script）を使ってRedashのクエリよりJSONを取得
 - サンプルは、GASをClaspで構築し、Typescriptで作成
@@ -37,6 +38,7 @@ npm init -y
 npm install -D @google/clasp
 npm install -D @types/google-apps-script
 ```
+
 下記コマンドを実行すると、ブラウザが起動します。
 GASを使いたいGoogleにログインし、その後にGoogleの認証画面が表示されるので許可をします。
 ```
@@ -76,6 +78,6 @@ forms
 webapp
 api
 ```
+
 `apps-script`ディレクトリの中に`.clasp.json`が作成されているので、root直下に移動します。
 これで構築は完了です。
-
