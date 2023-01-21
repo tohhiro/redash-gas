@@ -4,7 +4,7 @@ interface RedashType {
   fetch_latest_query_result: (
     redash_query_id: number,
     params: string
-  ) => fetch_latest_query_resultType[];
+  ) => getRedashJsonType[];
   refresh: (redash_query_id: number, params: string) => refreshType;
   poll_job: (job: any) => poll_jobType;
   fetch_json: (method: any | undefined, url: string) => fetch_jsonType[];
@@ -16,10 +16,6 @@ interface refreshType {
   id: string;
   query_result_id: number | null;
   updated_at: number | string;
-}
-
-interface fetch_latest_query_resultType {
-  // 返ってくるオブジェクトの型を定義
 }
 
 interface getRedashJsonType {
@@ -49,9 +45,6 @@ interface fetch_jsonType {
 }
 
 class Redash implements RedashType {
-  // REDASH_HOST  RedashのURL
-  // USER_API_KEY 個人のAPI Key
-  // QUERY_ID  クエリのID
   WAIT_TIMEOUT: number;
 
   //Redash APIの固定情報
@@ -64,15 +57,15 @@ class Redash implements RedashType {
   }
 
   // Redashからデータを取得する
-  getRedashJson(pUserId: string) {
+  getRedashJson() {  // パラメータを受け取る場合は、引数に params: string
     // RedashのクエリIDとp_user_idから最新情報を取得
-    let results = this.fetch_latest_query_result(this.QUERY_ID, pUserId);
+    let results = this.fetch_latest_query_result(this.QUERY_ID); // パラメータを受け取る場合は、第二引数に params: string
     return results;
   } //getRedashJson(pUserId)
 
   // クエリの最新結果取得
-  fetch_latest_query_result(redash_query_id: number, params: string) {
-    let job = this.poll_job(this.refresh(redash_query_id, params));
+  fetch_latest_query_result(redash_query_id: number) { // パラメータを受け取る場合は、第二引数に params: string
+    let job = this.poll_job(this.refresh(redash_query_id)); // パラメータを受け取る場合は第二引数に params
     let url =
       this.REDASH_HOST +
       "/api/queries/" +
@@ -83,16 +76,15 @@ class Redash implements RedashType {
     let json = this.fetch_json("get", url);
 
     return json["query_result"]["data"]["rows"];
-  } // fetch_latest_query_result(redash_query_id, params)
+  } // fetch_latest_query_result(redash_query_id)
 
   // 結果を更新するようにRedashへリクエスト
-  refresh(redash_query_id: number, params: string) {
+  refresh(redash_query_id: number) {// パラメータを受け取る場合は、第二引数に params: string
     let url =
       this.REDASH_HOST +
       "/api/queries/" +
       redash_query_id +
-      "/refresh" +
-      params;
+      "/refresh" // パラメータを受け取る場合は + params
     let json = this.fetch_json("post", url);
     return json.job;
   } // refresh(redash_query_id, params)
