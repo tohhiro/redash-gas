@@ -45,9 +45,6 @@ interface fetch_jsonType {
 }
 
 class Redash implements RedashType {
-  // REDASH_HOST  RedashのURL
-  // USER_API_KEY 個人のAPI Key
-  // QUERY_ID  クエリのID
   WAIT_TIMEOUT: number;
 
   //Redash APIの固定情報

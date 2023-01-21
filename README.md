@@ -10,6 +10,7 @@ GASでRedashのクエリを読み込むサンプル
 - ハードコートしてしまうと、Github上に公開してしまうリスクがあります
 
 ## 使用方法
+- GASの設定、[Google Apps Script API](https://script.google.com/home/usersettings)をオンにする
 - クローンしたあと、node_modulesをインストール
 - root直下に`.clasp.json`を作成と
 - 下記のフォーマットで、GASのスクリプトIDとSpreadSheetのIDを入力
@@ -36,12 +37,11 @@ npm init -y
 npm install -D @google/clasp
 npm install -D @types/google-apps-script
 ```
-下記コマンドでGoogleにログインします。
+下記コマンドを実行すると、ブラウザが起動します。
+GASを使いたいGoogleにログインし、その後にGoogleの認証画面が表示されるので許可をします。
 ```
 clasp login
 ```
-Googleの認証画面が表示されるので許可をします。
-
 
 続いて、rootパスで下記名前でディレクトリを生成し、このディレクトリ内に開発用のファイルを作成していきます。
 ```
